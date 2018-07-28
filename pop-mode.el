@@ -401,6 +401,12 @@ on a Pop-11 file.")
 
 ;; Need this for inferior-pop-mode
 (defun pop-mode-variables ()
+  (make-local-variable 'font-lock-defaults)
+  (setq font-lock-defaults '((pop-font-lock-keywords
+                              pop-font-lock-keywords-1
+                              pop-font-lock-keywords-2)
+                             nil
+                             t))
   (make-local-variable 'indent-line-function)
   (setq indent-line-function 'pop-indent-line)
   (make-local-variable 'comment-column)
@@ -1432,14 +1438,6 @@ This does a lot more highlighting.")
       pop-font-lock-keywords-2
     pop-font-lock-keywords-1)
   "*Pop-11 keywords to highlight in font-lock-mode")
-
-;; We don't need to do this for XEmacs as font-lock-mode is quite clever
-;; about working out what the keywords for a mode might be called, but every
-;; little helps
-(cond (pop-using-xemacs
-       (put 'pop-mode 'font-lock-keywords 'pop-font-lock-keywords))
-      (window-system
-       (font-lock-add-keywords 'pop-mode pop-font-lock-keywords)))
 
 
 ;;; pop-mode.el ends here
