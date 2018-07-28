@@ -105,7 +105,7 @@
 
 ;;; add pop mode to auto mode list if necessary
 (if (not (assoc "\\.p$" auto-mode-alist))
-    (setq auto-mode-alist (nconc auto-mode-alist '(("\\.p$" . pop-mode)))))
+    (add-to-list 'auto-mode-alist '("\\.p$" . pop-mode)))
 
 
 
