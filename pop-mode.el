@@ -44,14 +44,7 @@
 ;;; Note since emacs will only recognise 2 characters as a start of comment
 ;;; token, pop-mode treats `;;' as the Pop-11 start of  comment character.
 ;;; I have never seen that in Pop-11 code anywhere other than as a comment
-;;; start, but you never know ...  Second, and more significantly, the code
-;;; will only understand either PL-I style /*...*/ comments or ';;;' end of
-;;; line coments not both.  (This is a limitation of GNU Emacs -- the XEmacs
-;;; version of Pop-11 mode does not have this problem).  In general this is
-;;; not a problem.  Most people only use one or the other inside procedures.
-;;; Set the variable pop-use-pl1-comments as apropriate. I have it off since
-;;; I use PL-I style comments only as block comments at file level and
-;;; end-of-line comments inside my code.
+;;; start, but you never know ...
 ;;;
 ;;; The indentation code and pop-closeit cope with most pop-11 constructs
 ;;; I have come across.  Basically they cover my coding style and that used
@@ -112,12 +105,8 @@
 ;; The following variables are meant for YOU gentle reader.
 
 (defvar pop-use-pl1-comments nil
-  "*GNU Emacs can parse either pl1 style /* */ comments or end of line
-comments but not both (XEmacs supports both comment styles and ignores this
-variable).
-
-Non nil means that buffers contain only /* */ style comments, otherwise they
-contain only end of line comments.")
+  "Non nil means that comment-region etc will use /* */ style
+  comments, otherwise end of line comments will be used.")
 
 (defvar pop-label-regexp
   "\\(\\sw\\|\\s_\\)+\\s-*:\\s-*"
@@ -377,25 +366,10 @@ on a Pop-11 file.")
 	(modify-syntax-entry ?\{ "(}" pop-syntax-table)
 	(modify-syntax-entry ?\} "){" pop-syntax-table)
         ;; Support both Pop-11 comment styles.
-	;; This is totally broken: GNU Emacs suppoosedly supports two
-	;; comment styles, but this only works for C++ and other languages
-	;; where the both comment styles have the *same* first character.
-	(cond
-	 (pop-using-xemacs
-	  (modify-syntax-entry ?/  "_ 14" pop-syntax-table)
-	  (modify-syntax-entry ?*  "_ 23" pop-syntax-table)
-	  (modify-syntax-entry ?\; "_ 56" pop-syntax-table) ; ?;
-	  (modify-syntax-entry ?\n "> b" pop-syntax-table))
-	 (pop-use-pl1-comments
-	  (modify-syntax-entry 59 "_" pop-syntax-table) ; ?;
-	  (modify-syntax-entry ?\n " " pop-syntax-table)
-	  (modify-syntax-entry ?/ "_ 14" pop-syntax-table)
-	  (modify-syntax-entry ?* "_ 23" pop-syntax-table))
-	 (t
-	  (modify-syntax-entry 59 "_ 12" pop-syntax-table) ; ?;
-	  (modify-syntax-entry ?\n ">" pop-syntax-table)
-	  (modify-syntax-entry ?/ "_" pop-syntax-table)
-	  (modify-syntax-entry ?* "_" pop-syntax-table))))
+        (modify-syntax-entry ?/  "_ 14an" pop-syntax-table)
+        (modify-syntax-entry ?*  "_ 23an" pop-syntax-table)
+        (modify-syntax-entry ?\; "_ 12b" pop-syntax-table)
+        (modify-syntax-entry ?\n "> b" pop-syntax-table))
     (set-syntax-table pop-syntax-table)))
 
 
@@ -417,15 +391,7 @@ on a Pop-11 file.")
   (make-local-variable 'comment-end)
   (make-local-variable 'comment-start-skip)
   (make-local-variable 'parse-sexp-ignore-comments)
-  ;; More Emacs version hacking
   (cond
-   (pop-using-xemacs
-    ;; We do this like c++ mode and assume that comment-region etc
-    ;; will use end of line comments ...
-    (setq comment-start ";;;")
-    (setq comment-end "")
-    (setq comment-start-skip ";;;\\s-*" )
-    (setq parse-sexp-ignore-comments t))
    (pop-use-pl1-comments
     (setq comment-start-skip "/\\* *" )
     (setq comment-start "/* ")
