@@ -1394,6 +1394,7 @@ This does a lot more highlighting.")
 		       "and" "or"
 		       "instance" "endinstance" "slot" "is"
 		       "endprocedure" "enddefine"
+		       "section" "endsection"
 		       "form" "endform"
 		       "record" "endrecord" "trace" "untrace"
 		       "load" "uses"
