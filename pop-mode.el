@@ -379,7 +379,7 @@ on a Pop-11 file.")
                               pop-font-lock-keywords-1
                               pop-font-lock-keywords-2)
                              nil
-                             t))
+                             nil))
   (make-local-variable 'indent-line-function)
   (setq indent-line-function 'pop-indent-line)
   (make-local-variable 'comment-column)
