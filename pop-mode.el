@@ -1391,7 +1391,7 @@ This does a lot more highlighting.")
 		       "notcase" "notandcase" "notorcase" "endswitchon"
 		       "if" "then" "elseif" "else" "endif" "goto"
 		       "unless" "elseunless" "endunless"
-		       "and" "or"
+		       "and" "or" "return"
 		       "instance" "endinstance" "slot" "is"
 		       "endprocedure" "enddefine"
 		       "section" "endsection"
