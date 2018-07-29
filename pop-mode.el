@@ -1379,18 +1379,24 @@ This does a lot more highlighting.")
 	 (concat
 	  "\\(^\\|\\s-+\\)\\("
 	  (mapconcat 'identity
-		     '("for" "in" "on" "from" "to" "by" "till" "do" "endfor"
+		     '("for" "endfor"
+		       "in" "on" "from" "to" "by" "till" "do" "step"
+		       "nextif" "quitif" "quitunless" "nextloop" "quitloop"
 		       "fast_for" "endfast_for"
+		       "foreach" "endforeach" "forevery" "endforevery"
 		       "while" "endwhile"
 		       "until" "enduntil"
 		       "repeat" "times" "forever" "endrepeat"
 		       "switchon" "case" "andcase" "orcase"
 		       "notcase" "notandcase" "notorcase" "endswitchon"
-		       "if" "then" "elseif" "else" "endif"
+		       "if" "then" "elseif" "else" "endif" "goto"
 		       "unless" "elseunless" "endunless"
 		       "and" "or"
 		       "instance" "endinstance" "slot" "is"
 		       "endprocedure" "enddefine"
+		       "form" "endform"
+		       "record" "endrecord" "trace" "untrace"
+		       "load" "uses"
 		       )
 		     "\\|")
 	  ;; should be only whitespace following?
