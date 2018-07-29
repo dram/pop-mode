@@ -1365,7 +1365,7 @@ This does a lot more highlighting.")
 	  "\\<\\(" (mapconcat 'identity
 			    '("global" "vars" "lvars" "dlocal" "dlvars"
 			      "constant" "lconstant")
-			    "\\|") "\\)\\s +")
+			    "\\|") "\\)\\(\\s-+\\|$\\)")
 	 '(1 font-lock-keyword-face))
 
 	;; Highlight openers and closers (see HELP *SYSWORDS)
