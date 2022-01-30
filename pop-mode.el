@@ -567,7 +567,8 @@ the previous line and checks for indentation."
 (defun pop-semicolon-indent ()
   "Inserts a semicolon and then indents the line."
   (interactive)
-  (insert-char ?; 1)
+  (insert-char ?;
+               1)
   (indent-for-tab-command))
 
 (defun pop-newline-indent ()
@@ -1001,13 +1002,13 @@ in pop-interesting-declaration-modifiers."
 	(progn
 	  (end-of-line)
 	  (newline 1)))
-    (insert-string (cdr (assoc what pop-open-close-assoc)))
-    (insert-string ";")
+    (insert (cdr (assoc what pop-open-close-assoc)))
+    (insert ";")
     (if (and pop-closeit-define-comments
 	     (equal what "define"))
 	(progn
-	  (insert-string "    ;;; ")
-	  (insert-string (pop-define-name start))))
+	  (insert "    ;;; ")
+	  (insert (pop-define-name start))))
     (pop-indent-line)))
 
 (defun pop-define-name (&optional where)

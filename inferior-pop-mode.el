@@ -627,7 +627,7 @@ progress, otherwise it is echoed in the minibuffer."
 	      (setq old-marker-pos (marker-position (process-mark (pop-proc))))
 	      (save-excursion 
 		(goto-char old-marker-pos)
-		(insert-string compile-comment)
+		(insert compile-comment)
 		;; Process output is inserted at the marker, not at point
 		(set-marker (process-mark (pop-proc)) (point))
 		(sit-for 0))
